@@ -13,6 +13,9 @@ public interface IImageLoader {
 		RealTime
 	};
 	
+	/**
+	 * 数据源通过此接口将扫描到的图片通知给实现此接口的模块
+	 * */
 	interface Callback{
 		public void notifyRealTime(String file);
 		public void notifyOnce(LinkedList<String> files);

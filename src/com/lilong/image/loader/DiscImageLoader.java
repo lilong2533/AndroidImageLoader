@@ -23,6 +23,10 @@ public class DiscImageLoader implements IImageLoader ,Runnable{
 		lWorkStatus = WorkStatus.STATUS_INIT;
 		lImagesDir = images_dir;
 		lCallback = callback;
+		/* 设置通知策略，目前支持两种： 
+		     1: once -> 当所有图片扫描完成后封装成List一次通知给Adapter
+		     2: RealTime -> 没扫描一张图片就通知一次Adapter
+		 * */
 		lNotifyPolicy = NotifyPolicy.Once;
 		lImages = new LinkedList<String>();
 	}
@@ -38,7 +42,7 @@ public class DiscImageLoader implements IImageLoader ,Runnable{
 
 	@Override
 	public void run() {
-		if(NotifyPolicy.Once == lNotifyPolicy && lCallback == null){
+		if(lCallback == null){
 			lWorkStatus = WorkStatus.STATUS_ERROR;
 			return;
 		}
@@ -79,6 +83,9 @@ public class DiscImageLoader implements IImageLoader ,Runnable{
 		}
 	}
 	
+	/**
+	 * 将扫描到的图片实时的通知给Adapter
+	 * */
 	private void handleImageFile(File file){
 		if(isImage(file.getName())){
 			if(IImageLoader.NotifyPolicy.RealTime == lNotifyPolicy){

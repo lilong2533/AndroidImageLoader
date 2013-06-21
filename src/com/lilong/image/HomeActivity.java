@@ -44,6 +44,7 @@ public class HomeActivity extends Activity {
 				BitmapFactory.decodeFile(_img_uri, _options);
 				
 				int inSampleSize = 1;
+				/* 如果原始图片的尺寸大于缩率图，则对原始图片进行压缩处理 */
 			    if (_options.outHeight > img_height || _options.outWidth > img_width) {
 			        final int heightRatio = Math.round((float) _options.outHeight / (float) img_height);
 			        final int widthRatio = Math.round((float) _options.outWidth / (float) img_width);
